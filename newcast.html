@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RenewCast - ენერგეტიკის მომავალი</title>
+    <link rel="icon" href="icon.png" >
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ffe59a;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ffe59a;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='40' fill='url(%23grad)'/%3E%3Ccircle cx='50' cy='50' r='25' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='50' cy='50' r='8' fill='white'/%3E%3Cpath d='M20,50 Q50,20 80,50 Q50,80 20,50' fill='none' stroke='white' stroke-width='2' opacity='0.6'/%3E%3C/svg%3E">
+    <link rel="stylesheet" href="new.css">
+    <script src="new.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <div class="logo-wave"></div>
+                    <div class="logo-dot"></div>
+                    <div><img src="logo_long.svg" class="long_logo" alt=""></div>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">მთავარი</a></li>
+                <li><a href="#features">ფუნქციები</a></li>
+                <li><a href="#about">ჩვენ შესახებ</a></li>
+                <li><a href="#dashboard">დაშბორდი</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </nav>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <button class="mobile-menu-close" id="mobileMenuClose">×</button>
+            <a href="#home">მთავარი</a>
+            <a href="#features">ფუნქციები</a>
+            <a href="#about">ჩვენ შესახებ</a>
+            <a href="#dashboard">დაშბორდი</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-grid">
+        <div class="hero-content">
+                    <h1>
+                        ჰიდროენერგიის
+                        <span class="highlight">ინტელიგენტური</span>
+                        მართვა
+                    </h1>
+                    <p>
+                        მაღალი სიზუსტით პროგნოზირება, ფინანსური დანაკარგების მინიმიზაცია 
+                        და წყლის რესურსების ოპტიმალური გამოყენება თანამედროვე ტექნოლოგიებით.
+                    </p>
+                    <div class="cta-buttons">
+                        <button class="cta-secondary" onclick="scrollToSection('features')">
+                            იხილეთ პროგნოზი
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="water-animation"></div>
+                    <div class="floating-elements">
+                        <div class="floating-circle circle-1"></div>
+                        <div class="floating-circle circle-2"></div>
+                        <div class="floating-circle circle-3"></div>
+                        <div class="floating-particle particle-1"></div>
+                        <div class="floating-particle particle-2"></div>
+                        <div class="floating-particle particle-3"></div>
+                        <div class="floating-particle particle-4"></div>
+                    </div>
+                    <div class="data-points">
+                        <div class="data-point">
+                            <span class="dot"></span>
+                            <span>რეალური დროის მონაცემები</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="dot"></span>
+                            <span>94.8% სიზუსტე</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="dot"></span>
+                            <span>ავტომატური ოპტიმიზაცია</span>
+                        </div>
+                        <div class="data-point">
+                            <span class="dot"></span>
+                            <span>24/7 მონიტორინგი</span>
+                        </div>
+                    </div>
+                    <div class="energy-waves">
+                        <div class="wave wave-1"></div>
+                        <div class="wave wave-2"></div>
+                        <div class="wave wave-3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+   
+
+    <!-- Interactive Dashboard Section -->
+    <section id="dashboard" class="dashboard">
+        <div class="container">
+            <h2 class="section-title">დეშბორდი</h2>
+            <p class="section-subtitle">
+                რეალური დროის მონაცემები და პროგნოზები თქვენი სადგურის ეფექტური მართვისთვის
+            </p>
+            
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="accuracy">- - -</div>
+                    <div class="stat-label">პროგნოზის სიზუსტე</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="savings">- - -</div>
+                    <div class="stat-label">თვიური დანაზოგი</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="efficiency">- - -</div>
+                    <div class="stat-label">ეფექტურობის ზრდა</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="stations">3</div>
+                    <div class="stat-label">აქტიური სადგურები</div>
+                </div>
+            </div>
+
+            <!-- Dashboard Container (moved up) -->
+            <div class="dashboard-container">
+                <div class="dashboard-grid">
+                    <div class="chart-container">
+                        <h4>გამომუშავება vs პროგნოზი (7 დღე)</h4>
+                        <canvas id="productionChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h4>წყლის დონე და ნალექის პროგნოზი (7 დღე)</h4>
+                        <canvas id="waterChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- HPP Stations Section -->
+                <div class="stations-section">
+                    <h3>ჰესები</h3>
+                    <div class="stations-grid">
+                        <div class="station-card" data-type="hpp1">
+                            <div class="station-icon">🌊</div>
+                            <h4>HPP-1</h4>
+                            <p>პირველი ჰესი</p>
+                            <div class="station-stats">
+                                <span class="stat">აქტიური</span>
+                                <span class="stat">7.8 MW მაქს</span>
+                            </div>
+                            <button class="station-btn" onclick="selectHPP('hpp1')">პროგნოზი</button>
+                        </div>
+                        <div class="station-card" data-type="hpp2">
+                            <div class="station-icon">🌊</div>
+                            <h4>HPP-2</h4>
+                            <p>მეორე ჰესი</p>
+                            <div class="station-stats">
+                                <span class="stat">აქტიური</span>
+                                <span class="stat">6.1 MW მაქს</span>
+                            </div>
+                            <button class="station-btn" onclick="selectHPP('hpp2')">პროგნოზი</button>
+                        </div>
+                        <div class="station-card" data-type="hpp3">
+                            <div class="station-icon">🌊</div>
+                            <h4>HPP-3</h4>
+                            <p>მესამე ჰესი</p>
+                            <div class="station-stats">
+                                <span class="stat">აქტიური</span>
+                                <span class="stat">5.5 MW მაქს</span>
+                            </div>
+                            <button class="station-btn" onclick="selectHPP('hpp3')">პროგნოზი</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HPP Prediction Section -->
+                <div class="hpp-prediction-section" id="hppPredictionSection" style="display: none;">
+                    <h3 id="selectedHPPTitle">HPP-1 პროგნოზი</h3>
+                    
+                    <!-- HPP Charts -->
+                    <div class="hpp-charts-container">
+                        <div class="hpp-chart-card">
+                            <h4 id="powerChartTitle">HPP-1 - გამომუშავება (MW)</h4>
+                            <canvas id="hppPowerChart"></canvas>
+                        </div>
+                        <div class="hpp-chart-card">
+                            <h4 id="waterChartTitle">HPP-1 - ნალექის რაოდენობა (მმ)</h4>
+                            <canvas id="hppWaterChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Prediction Form -->
+                    <div class="prediction-form">
+                        <h4>პროგნოზის პარამეტრები</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="waterLevel">წყლის დონე (მ)</label>
+                                <input type="number" id="waterLevel" placeholder="მიუთითეთ წყლის დონე" value="145">
+                            </div>
+                            <div class="form-group">
+                                <label for="precipitation">ნალექის პროგნოზი (მმ)</label>
+                                <input type="number" id="precipitation" placeholder="ნალექი 24 საათში" value="12">
+                            </div>
+                            <div class="form-group">
+                                <label for="temperature">ტემპერატურა (°C)</label>
+                                <input type="number" id="temperature" placeholder="საშუალო ტემპერატურა" value="15">
+                            </div>
+                            <div class="form-group">
+                                <label for="inflow">შემოდინება (მ³/წმ)</label>
+                                <input type="number" id="inflow" placeholder="მდინარის შემოდინება" value="85">
+                            </div>
+                        </div>
+                        <button class="predict-button" onclick="generateHPPPrediction()">პროგნოზის გენერირება</button>
+                    </div>
+
+                    <div id="loading" class="loading">
+                        <div class="spinner"></div>
+                        <p>მიმდინარეობს გამოთვლები...</p>
+                    </div>
+
+                    <div id="predictionResult" style="display: none; margin-top: 2rem;">
+                        <h4>პროგნოზის შედეგები</h4>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                            <div style="text-align: center;">
+                                <strong style="font-size: 1.5rem; color: #ffe59a;" id="predictedGeneration">0 MW</strong>
+                                <p>პროგნოზირებული გამომუშავება</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <strong style="font-size: 1.5rem; color: #ffe59a;" id="confidenceLevel">0%</strong>
+                                <p>სიზუსტის მაჩვენებელი</p>
+                            </div>
+                            <div style="text-align: center;">
+                                <strong style="font-size: 1.5rem; color: #ffe59a;" id="potentialSavings">€0</strong>
+                                <p>პოტენციური დანაზოგი</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">ჩვენი უპირატესობები</h2>
+            <p class="section-subtitle">
+                სისტემა, რომელიც აერთიანებს ხელოვნურ ინტელექტს, მეტეოროლოგიურ პროგნოზებს 
+                და ჰიდროლოგიურ მოდელებს მაქსიმალური ეფექტურობისთვის
+            </p>
+            <div class="features-grid">
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🎯</div>
+                    <h3>პროგნოზირება</h3>
+                    <p>მაშინ ლერნინგის ალგორითმები და მრავალფეროვანი მონაცემების წყაროები უზრუნველყოფს 95%+ სიზუსტეს საათობრივ და დღიურ პროგნოზებში</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">💼</div>
+                    <h3>ბიზნეს ოპტიმიზაცია</h3>
+                    <p>შეამცირეთ ჯარიმები და გაზარდეთ შემოსავლები ელექტროენერგიის ბაზარზე ზუსტი პროგნოზირებითა და რესურსების სწორი განაწილებით</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🌊</div>
+                    <h3>წყლის რესურსების მართვა</h3>
+                    <p>მინიმუმამდე შემცირება წყლის დაღვრისა და რეზერვუარების ოპტიმალური გამოყენება მცირე და საშუალო სადგურებისთვის</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">⚡</div>
+                    <h3>რეალური დროის ინტეგრაცია</h3>
+                    <p>24/7 მონიტორინგი, ავტომატური განახლებები და ღია API არსებულ სისტემებთან მარტივი ინტეგრაციისთვის</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">📈</div>
+                    <h3>ანალიტიკა და რეპორტინგი</h3>
+                    <p>სრულყოფილი დაშბორდი ვიზუალიზაციით, ტრენდების ანალიზი და დეტალური რეპორტები გადაწყვეტილების მისაღებად</p>
+                </div>
+                <div class="feature-card fade-in">
+                    <div class="feature-icon">🔒</div>
+                    <h3>უსაფრთხოება და სანდოობა</h3>
+                    <p>მონაცემთა დაშფრვა, რეზერვაციის სისტემები და ღრუბლოვანი ინფრასტრუქტურა მაღალი ხელმისაწვდომობით</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- About Section -->
+     <section id="about" class="features" style="background: #0a0a0a;">
+        <div class="container">
+            <h2 class="section-title">ჩვენ  შესახებ</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p style="text-align: left; font-size: 1.2rem; margin: 0; color: rgba(245, 245, 245, 0.8); line-height: 1.6;">
+                        RenewCast არის ინოვაციური ტექნოლოგია, რომელიც აერთიანებს ხელოვნურ ინტელექტს, 
+                        მეტეოროლოგიურ მონაცემებს და ჰიდროლოგიურ მოდელებს ჰიდროელექტროსადგურების 
+                        ოპტიმალური მუშაობისთვის. ჩვენი მისიაა ხელი შევუწყოთ განახლებადი ენერგიის 
+                        ეფექტურ გამოყენებას და გარემოს დაცვას.
+                    </p>
+                </div>
+                <div class="about-media">
+                    <img class="about-image" src="logo.svg" alt="RenewCast - ჰიდროენერგიის ინტელიგენტური მართვა">
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Team Section -->
+    <section id="team" class="features">
+        <div class="container">
+            <h2 class="section-title">ჩვენი გუნდი</h2>
+            <p class="section-subtitle">
+                პროფესიონალები, რომლებიც ქმნიან მომავალს ჰიდროენერგეტიკაში
+            </p>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="lavrenti.jpg" alt="ლავრენტი ემირაშვილი" />
+                    </div>
+                    <h4>ლავრენტი ემირაშვილი</h4>
+                    <p>CTO & Co-Founder</p>
+                    <p class="member-description">AI/ML სპეციალისტი</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="davit.jpg" alt="დავით აბრამიშვილი" />
+                    </div>
+                    <h4>დავით აბრამიშვილი</h4>
+                    <p>CTO & Co-Founder</p>
+                    <p class="member-description">AI/ML სპეციალისტი</p>
+                </div>
+                <div class="team-member">
+                    <div class="member-photo">
+                        <img src="koba.jpg" alt="კობა ზურაბაშვილი" />
+                </div>
+                    <h4>კობა ზურაბაშვილი</h4>
+                    <p>Lead Developer</p>
+                    <p class="member-description">Full-stack დეველოპერი</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="features" style="background: #0a0a0a;">
+        <div class="container">
+            <h2 class="section-title">კონტაქტი</h2>
+            <p class="section-subtitle">
+                დაგვიკავშირდით ნებისმიერ დროს. ჩვენ ვპასუხობთ 24 საათის განმავლობაში
+            </p>
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div class="contact-details">
+                            <h4>ელფოსტა</h4>
+                            <a href="mailto:lavrentiemirashvili@gmail.com" class="social-link">lavrentiemirashvili@gmail.com</a>
+                            <a href="mailto:david.abramishvili@outlook.com" class="social-link">david.abramishvili@outlook.com</a>
+                            <a href="mailto:kobazurabashvili2018@gmail.com" class="social-link">kobazurabashvili2018@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📱</div>
+                        <div class="contact-details">
+                            <h4>ტელეფონი</h4>
+                            <a href="tel:+995599477813" class="social-link">+995 599 47 78 13</a>
+                            <a href="tel:+995511233366" class="social-link">+995 511 23 33 66</a>
+                            <a href="tel:+995514695569" class="social-link">+995 514 69 55 69</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-details">
+                            <h4>LinkedIn</h4>
+                            <a href="https://www.linkedin.com/in/lavrenti-emirashvili/ " class="social-link">https://www.linkedin.com/in/lavrentiemirashvili</a>
+                            <a href="https://www.linkedin.com/in/davitabramishvili/ " class="social-link">https://www.linkedin.com/in/davitabramishvili</a>
+                            <a href="https://www.linkedin.com/in/kobazurabashvili/" class="social-link">https://www.linkedin.com/in/kobazurabashvili</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+                <p>⚡ &copy; 2025 RenewCast. ყველა უფლება დაცულია. Climate Hackathon 2025</p>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
