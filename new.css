@@ -1,3 +1,58 @@
+/* HPP Graphs Section */
+.hpp-graphs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 40px;
+}
+.hpp-block {
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+    border-radius: 18px;
+    padding: 30px 20px;
+    border: 2px solid rgba(255, 229, 154, 0.25);
+    margin-bottom: 0;
+    box-shadow: 0 4px 24px rgba(255, 229, 154, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.hpp-block h4 {
+    color: #ffe59a;
+    font-size: 1.3rem;
+    margin-bottom: 18px;
+    font-weight: 700;
+    text-align: left;
+}
+.hpp-charts-row {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.hpp-charts-row canvas {
+    background: #181818;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(255, 229, 154, 0.07);
+    border: 1px solid rgba(255, 229, 154, 0.10);
+    width: 100%;
+    min-width: 0;
+    height: 320px !important;
+    max-width: 600px;
+    margin: 0 auto;
+}
+@media (max-width: 1100px) {
+    .hpp-charts-row {
+        flex-direction: column;
+        gap: 24px;
+    }
+    .hpp-charts-row canvas {
+        max-width: 100%;
+        height: 260px !important;
+    }
+}
 * {
     margin: 0;
     padding: 0;
@@ -577,7 +632,7 @@ padding-top: 5%;}
 /* Stations Section */
 .stations-section {
     margin-top: 40px;
-    padding: 40px;
+    padding: 20px;
     background: linear-gradient(135deg, #0b1220 0%, #0e1a33 100%);
     border-radius: 16px;
     border: 1px solid rgba(255, 229, 154, 0.2);
@@ -1722,7 +1777,7 @@ footer {
     
     /* Stations Section */
     .stations-section {
-        padding: 25px;
+        padding: 10;
         margin-top: 30px;
     }
     

@@ -4,453 +4,6 @@ const observerOptions = {
     rootMargin: '0px 0px -100px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('fade-in');
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.feature-card').forEach(card => {
-    observer.observe(card);
-});
-
-// Observe team members and blog posts for animations
-document.querySelectorAll('.team-member, .blog-post').forEach(element => {
-    observer.observe(element);
-});
-
-// Smooth scrolling
-function scrollToSection(sectionId) {
-    document.getElementById(sectionId).scrollIntoView({
-        behavior: 'smooth'
-    });
-}
-
-// HPP selection functionality
-function selectHPP(hppId) {
-    const hppPredictionSection = document.getElementById('hppPredictionSection');
-    const selectedHPPTitle = document.getElementById('selectedHPPTitle');
-    const powerChartTitle = document.getElementById('powerChartTitle');
-    const waterChartTitle = document.getElementById('waterChartTitle');
-    
-    // Add loading animation
-    hppPredictionSection.style.opacity = '0';
-    hppPredictionSection.style.transform = 'translateY(30px)';
-    hppPredictionSection.style.display = 'block';
-    
-    // Update titles with animation
-    selectedHPPTitle.textContent = `${hppId.toUpperCase()} პროგნოზი`;
-    powerChartTitle.textContent = `${hppId.toUpperCase()} - გამომუშავება (MW)`;
-    waterChartTitle.textContent = `${hppId.toUpperCase()} - ნალექის რაოდენობა (მმ)`;
-    
-    // Initialize HPP charts
-    initHPPCharts(hppId);
-    
-    // Animate section appearance
-    setTimeout(() => {
-        hppPredictionSection.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        hppPredictionSection.style.opacity = '1';
-        hppPredictionSection.style.transform = 'translateY(0)';
-    }, 100);
-    
-    // Scroll to section
-    setTimeout(() => {
-        hppPredictionSection.scrollIntoView({ behavior: 'smooth' });
-    }, 200);
-    
-    // Add click animation to the selected card
-    const selectedCard = document.querySelector(`[data-type="${hppId}"]`);
-    if (selectedCard) {
-        selectedCard.style.transform = 'scale(0.95)';
-        setTimeout(() => {
-            selectedCard.style.transform = 'scale(1)';
-        }, 150);
-    }
-    
-    // Add haptic feedback for mobile devices
-    if (navigator.vibrate) {
-        navigator.vibrate(50);
-    }
-}
-
-// Charts initialization
-let productionChart, waterChart, hppPowerChart, hppWaterChart;
-
-function initCharts() {
-    // Production Chart
-    const productionCtx = document.getElementById('productionChart').getContext('2d');
-    const days = ['24 აგვ', '25 აგვ', '26 აგვ', '27 აგვ', '28 აგვ', '29 აგვ', '30 აგვ', '31 აგვ'];
-    // HPP-1 Real Data (August 24-31)
-    const hpp1PowerData = [5.3, 5.3, 7.8, 7.0, 6.8, 6.8, 6.0, 5.3];
-    const hpp1DischargeData = [79.7, 79.9, 81.3, 79.5, 82.0, 84.9, 86.6, 83.4];
-    const hpp1PrecipitationData = [0, 0, 0.15, 0.1, 0, 0, 0, 0];
-    
-    // HPP-2 Data (placeholder - will be updated with real data)
-    const hpp2PowerData = [4.2, 4.5, 6.1, 5.8, 5.5, 5.2, 4.8, 4.1];
-    const hpp2DischargeData = [65.2, 67.8, 70.1, 68.5, 69.2, 71.5, 73.8, 70.9];
-    const hpp2PrecipitationData = [0, 0, 0.08, 0.05, 0, 0, 0, 0];
-    
-    // HPP-3 Data (placeholder - will be updated with real data)
-    const hpp3PowerData = [3.8, 4.1, 5.5, 5.2, 4.9, 4.6, 4.2, 3.7];
-    const hpp3DischargeData = [58.3, 60.7, 63.2, 61.8, 62.5, 64.9, 67.1, 64.2];
-    const hpp3PrecipitationData = [0, 0, 0.12, 0.08, 0, 0, 0, 0];
-    
-    const actualData = hpp1PowerData;
-    const predictedData = actualData.map(val => val + (Math.random() - 0.5) * 2);
-
-    productionChart = new Chart(productionCtx, {
-        type: 'line',
-        data: {
-            labels: days,
-            datasets: [{
-                label: 'ფაქტობრივი გამომუშავება',
-                data: actualData,
-                borderColor: '#ffe59a',
-                backgroundColor: 'rgba(255, 229, 154, 0.1)',
-                fill: true,
-                tension: 0.4,
-                borderWidth: 3
-            }, {
-                label: 'პროგნოზირებული',
-                data: predictedData,
-                borderColor: '#f5f5f5',
-                backgroundColor: 'rgba(245, 245, 245, 0.1)',
-                fill: false,
-                tension: 0.4,
-                borderDash: [5, 5],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        color: '#f5f5f5',
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        color: 'rgba(245, 245, 245, 0.1)'
-                    }
-                },
-                y: {
-                    beginAtZero: false,
-                    title: {
-                        display: true,
-                        text: 'MW',
-                        color: '#f5f5f5'
-                    },
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        color: 'rgba(245, 245, 245, 0.1)'
-                    }
-                }
-            }
-        }
-    });
-
-    // Water Chart
-    const waterCtx = document.getElementById('waterChart').getContext('2d');
-    const waterData = hpp1DischargeData;
-    const precipitationData = hpp1PrecipitationData;
-
-    waterChart = new Chart(waterCtx, {
-        type: 'line',
-        data: {
-            labels: days,
-            datasets: [{
-                label: 'ნალექის რაოდენობა (მმ)',
-                data: waterData,
-                borderColor: '#ffe59a',
-                backgroundColor: 'rgba(255, 229, 154, 0.1)',
-                fill: true,
-                tension: 0.4,
-                yAxisID: 'y',
-                borderWidth: 3
-            }, {
-                label: 'ნალექი (მმ)',
-                data: precipitationData,
-                borderColor: '#f5f5f5',
-                backgroundColor: 'rgba(245, 245, 245, 0.2)',
-                fill: true,
-                tension: 0.4,
-                yAxisID: 'y1',
-                type: 'bar'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        color: '#f5f5f5',
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        color: 'rgba(245, 245, 245, 0.1)'
-                    }
-                },
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'წყლის დონე (მ)',
-                        color: '#f5f5f5'
-                    },
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        color: 'rgba(245, 245, 245, 0.1)'
-                    }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'ნალექი (მმ)',
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        drawOnChartArea: false,
-                    },
-                    ticks: {
-                        color: '#f5f5f5'
-                    }
-                }
-            }
-        }
-    });
-}
-
-// Initialize HPP Charts
-function initHPPCharts(hppId) {
-    const days = ['24 აგვ', '25 აგვ', '26 აგვ', '27 აგვ', '28 აგვ', '29 აგვ', '30 აგვ', '31 აგვ'];
-    
-    let powerData, dischargeData, precipitationData;
-    
-    switch(hppId) {
-        case 'hpp1':
-            powerData = [5.3, 5.3, 7.8, 7.0, 6.8, 6.8, 6.0, 5.3];
-            dischargeData = [79.7, 79.9, 81.3, 79.5, 82.0, 84.9, 86.6, 83.4];
-            precipitationData = [0, 0, 0.15, 0.1, 0, 0, 0, 0];
-            break;
-        case 'hpp2':
-            powerData = [4.2, 4.5, 6.1, 5.8, 5.5, 5.2, 4.8, 4.1];
-            dischargeData = [65.2, 67.8, 70.1, 68.5, 69.2, 71.5, 73.8, 70.9];
-            precipitationData = [0, 0, 0.08, 0.05, 0, 0, 0, 0];
-            break;
-        case 'hpp3':
-            powerData = [3.8, 4.1, 5.5, 5.2, 4.9, 4.6, 4.2, 3.7];
-            dischargeData = [58.3, 60.7, 63.2, 61.8, 62.5, 64.9, 67.1, 64.2];
-            precipitationData = [0, 0, 0.12, 0.08, 0, 0, 0, 0];
-            break;
-        default:
-            powerData = [5.3, 5.3, 7.8, 7.0, 6.8, 6.8, 6.0, 5.3];
-            dischargeData = [79.7, 79.9, 81.3, 79.5, 82.0, 84.9, 86.6, 83.4];
-            precipitationData = [0, 0, 0.15, 0.1, 0, 0, 0, 0];
-    }
-    
-    const predictedData = powerData.map(val => val + (Math.random() - 0.5) * 2);
-    
-    // Destroy existing charts if they exist
-    if (hppPowerChart) {
-        hppPowerChart.destroy();
-    }
-    if (hppWaterChart) {
-        hppWaterChart.destroy();
-    }
-    
-    // HPP Power Chart
-    const hppPowerCtx = document.getElementById('hppPowerChart').getContext('2d');
-    hppPowerChart = new Chart(hppPowerCtx, {
-        type: 'line',
-        data: {
-            labels: days,
-            datasets: [{
-                label: 'ფაქტობრივი გამომუშავება',
-                data: powerData,
-                borderColor: '#ffe59a',
-                backgroundColor: 'rgba(255, 229, 154, 0.1)',
-                fill: true,
-                tension: 0.4,
-                borderWidth: 3
-            }, {
-                label: 'პროგნოზირებული',
-                data: predictedData,
-                borderColor: '#f5f5f5',
-                backgroundColor: 'rgba(245, 245, 245, 0.1)',
-                fill: false,
-                tension: 0.4,
-                borderDash: [5, 5],
-                borderWidth: 2
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: {
-                duration: 2000,
-                easing: 'easeInOutQuart'
-            },
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        color: '#f5f5f5',
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        color: 'rgba(245, 245, 245, 0.1)'
-                    }
-                },
-                y: {
-                    beginAtZero: false,
-                    title: {
-                        display: true,
-                        text: 'MW',
-                        color: '#f5f5f5'
-                    },
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        color: 'rgba(245, 245, 245, 0.1)'
-                    }
-                }
-            }
-        }
-    });
-    
-    // HPP Water Chart
-    const hppWaterCtx = document.getElementById('hppWaterChart').getContext('2d');
-    hppWaterChart = new Chart(hppWaterCtx, {
-        type: 'line',
-        data: {
-            labels: days,
-            datasets: [{
-                label: 'ნალექის რაოდენობა (მმ)',
-                data: dischargeData,
-                borderColor: '#ffe59a',
-                backgroundColor: 'rgba(255, 229, 154, 0.1)',
-                fill: true,
-                tension: 0.4,
-                yAxisID: 'y',
-                borderWidth: 3
-            }, {
-                label: 'ნალექი (მმ)',
-                data: precipitationData,
-                borderColor: '#f5f5f5',
-                backgroundColor: 'rgba(245, 245, 245, 0.2)',
-                fill: true,
-                tension: 0.4,
-                yAxisID: 'y1',
-                type: 'bar'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            animation: {
-                duration: 2000,
-                easing: 'easeInOutQuart'
-            },
-            plugins: {
-                legend: {
-                    position: 'top',
-                    labels: {
-                        color: '#f5f5f5',
-                        font: {
-                            size: 12
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        color: 'rgba(245, 245, 245, 0.1)'
-                    }
-                },
-                y: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    title: {
-                        display: true,
-                        text: 'მმ',
-                        color: '#f5f5f5'
-                    },
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        color: 'rgba(245, 245, 245, 0.1)'
-                    }
-                },
-                y1: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    title: {
-                        display: true,
-                        text: 'მმ',
-                        color: '#f5f5f5'
-                    },
-                    ticks: {
-                        color: '#f5f5f5'
-                    },
-                    grid: {
-                        drawOnChartArea: false,
-                    }
-                }
-            }
-        }
-    });
-}
-
 // Function to update charts based on selected station
 function updateChartsForStation(stationId) {
     const days = ['24 აგვ', '25 აგვ', '26 აგვ', '27 აგვ', '28 აგვ', '29 აგვ', '30 აგვ', '31 აგვ'];
@@ -620,6 +173,199 @@ function animateStats() {
 
 // Initialize everything when page loads
 document.addEventListener('DOMContentLoaded', function() {
+        renderAllHPPCharts();
+});
+
+// Render all HPP charts (production and water) for each HPP
+function renderAllHPPCharts() {
+    // HPP DATA ARRAYS
+    const hpp1 = [
+        {"date":"2025-08-18","actual":4.4,"precip_mm":0.0,"fc_p10":3.89,"fc_p50":5.52,"fc_p90":8.30},
+        {"date":"2025-08-19","actual":4.1,"precip_mm":0.0,"fc_p10":3.89,"fc_p50":5.52,"fc_p90":8.30},
+        {"date":"2025-08-20","actual":4.3,"precip_mm":0.7,"fc_p10":3.35,"fc_p50":5.48,"fc_p90":9.09},
+        {"date":"2025-08-21","actual":17.7,"precip_mm":5.4,"fc_p10":4.93,"fc_p50":6.57,"fc_p90":19.71},
+        {"date":"2025-08-22","actual":9.8,"precip_mm":0.0,"fc_p10":11.94,"fc_p50":13.58,"fc_p90":16.36},
+        {"date":"2025-08-23","actual":6.8,"precip_mm":0.0,"fc_p10":5.28,"fc_p50":6.91,"fc_p90":9.69},
+        {"date":"2025-08-24","actual":5.3,"precip_mm":0.1,"fc_p10":3.90,"fc_p50":6.02,"fc_p90":9.63}
+    ];
+    const hpp2 = [
+        {"date":"2025-08-07","actual":47.0,"precip_mm":0.0,"fc_p10":35.97,"fc_p50":46.3,"fc_p90":56.63},
+        {"date":"2025-08-08","actual":61.0,"precip_mm":4.3,"fc_p10":36.02,"fc_p50":48.2,"fc_p90":60.39},
+        {"date":"2025-08-09","actual":72.0,"precip_mm":34.8,"fc_p10":30.14,"fc_p50":63.8,"fc_p90":97.46},
+        {"date":"2025-08-10","actual":50.0,"precip_mm":14.4,"fc_p10":45.43,"fc_p50":73.74,"fc_p90":102.05},
+        {"date":"2025-08-11","actual":43.0,"precip_mm":0.0,"fc_p10":43.92,"fc_p50":56.0,"fc_p90":68.08},
+        {"date":"2025-08-12","actual":45.0,"precip_mm":1.5,"fc_p10":34.89,"fc_p50":45.62,"fc_p90":56.36},
+        {"date":"2025-08-13","actual":39.0,"precip_mm":0.6,"fc_p10":34.37,"fc_p50":44.61,"fc_p90":54.85}
+    ];
+    const hpp3 = [
+        {"date":"2025-08-11","actual":17.5,"precip_mm":3.4,"fc_p10":13.39,"fc_p50":17.72,"fc_p90":22.05},
+        {"date":"2025-08-12","actual":17.4,"precip_mm":4.8,"fc_p10":13.63,"fc_p50":17.41,"fc_p90":23.18},
+        {"date":"2025-08-13","actual":17.1,"precip_mm":0.8,"fc_p10":13.94,"fc_p50":17.6,"fc_p90":21.27},
+        {"date":"2025-08-14","actual":17.2,"precip_mm":1.5,"fc_p10":13.68,"fc_p50":17.5,"fc_p90":21.33},
+        {"date":"2025-08-15","actual":17.6,"precip_mm":7.7,"fc_p10":13.66,"fc_p50":18.11,"fc_p90":23.77},
+        {"date":"2025-08-16","actual":24.3,"precip_mm":37.1,"fc_p10":16.85,"fc_p50":23.78,"fc_p90":36.61},
+        {"date":"2025-08-17","actual":23.7,"precip_mm":1.5,"fc_p10":18.37,"fc_p50":23.15,"fc_p90":27.54}
+    ];
+
+    [
+        {data: hpp1, outputId: 'hpp1-output-chart', precipId: 'hpp1-precip-chart'},
+        {data: hpp2, outputId: 'hpp2-output-chart', precipId: 'hpp2-precip-chart'},
+        {data: hpp3, outputId: 'hpp3-output-chart', precipId: 'hpp3-precip-chart'}
+    ].forEach(hpp => {
+        const days = hpp.data.map(d => d.date ? d.date.slice(5).replace('-', '/') : '');
+        const actual = hpp.data.map(d => d.actual ?? null);
+        const p10 = hpp.data.map(d => d.fc_p10 ?? null);
+        const p50 = hpp.data.map(d => d.fc_p50 ?? null);
+        const p90 = hpp.data.map(d => d.fc_p90 ?? null);
+        const precip = hpp.data.map(d => d.precip_mm ?? null);
+
+        // Output chart (actual, prognosed, margin)
+        const outputCtx = document.getElementById(hpp.outputId)?.getContext('2d');
+        if (outputCtx) {
+            new Chart(outputCtx, {
+                type: 'line',
+                data: {
+                    labels: days,
+                    datasets: [
+                        // Margin of error area (gray highlight, fill between p90 and p10)
+
+                        {
+                            label: '',
+                            data: p10,
+                            borderColor: 'rgba(0,0,0,0)',
+                            backgroundColor: 'rgba(0,0,0,0)',
+                            fill: false,
+                            pointRadius: 0,
+                            borderWidth: 0,
+                            tension: 0.4,
+                            type: 'line',
+                            order: 1
+                        },
+                        // Actual and Prognosed lines
+                        {
+                            label: 'ფაქტობრივი გამომუშავება',
+                            data: actual,
+                            borderColor: '#ffe59a',
+                            backgroundColor: 'rgba(255, 229, 154, 0.15)',
+                            fill: false,
+                            tension: 0.4,
+                            borderWidth: 3,
+                            pointBackgroundColor: '#ffe59a',
+                            pointRadius: 5,
+                            pointHoverRadius: 7
+                        },
+                        {
+                            label: 'პროგნოზი (საშუალო)',
+                            data: p50,
+                            borderColor: 'rgba(138, 122, 237, 1)',
+                            backgroundColor: 'rgba(138, 122, 237, 0.08)',
+                            fill: false,
+                            tension: 0.4,
+                            borderWidth: 2,
+                            pointBackgroundColor: 'rgba(138, 122, 237, 1)',
+                            pointRadius: 4,
+                            pointHoverRadius: 6
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#ffe59a',
+                                font: { size: 13 }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    interaction: {
+                        mode: 'nearest',
+                        axis: 'x',
+                        intersect: false
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#ffe59a' },
+                            grid: { color: 'rgba(255, 229, 154, 0.08)' }
+                        },
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'MW',
+                                color: '#ffe59a'
+                            },
+                            ticks: { color: '#ffe59a' },
+                            grid: { color: 'rgba(255, 229, 154, 0.08)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Precipitation bar chart
+        const precipCtx = document.getElementById(hpp.precipId)?.getContext('2d');
+        if (precipCtx) {
+            new Chart(precipCtx, {
+                type: 'bar',
+                data: {
+                    labels: days,
+                    datasets: [
+                        {
+                            label: 'ნალექი (მმ)',
+                            data: precip,
+                            backgroundColor: 'rgba(138, 122, 237, 0.5)',
+                            borderColor: '#ffe59a',
+                            borderWidth: 2,
+                            hoverBackgroundColor: '#ffe59a',
+                            borderRadius: 8,
+                            maxBarThickness: 40
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                color: '#ffe59a',
+                                font: { size: 13 }
+                            }
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: { color: '#ffe59a' },
+                            grid: { color: 'rgba(255, 229, 154, 0.08)' }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'მმ',
+                                color: '#ffe59a'
+                            },
+                            ticks: { color: '#ffe59a' },
+                            grid: { color: 'rgba(255, 229, 154, 0.08)' }
+                        }
+                    }
+                }
+            });
+        }
+    });
+}
     initCharts();
     
     // Set stats immediately without animation
@@ -642,7 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update stations count dynamically
     updateStationsCount();
-});
+// End of DOMContentLoaded event
 
 function updateStationsCount() {
     const stationsEl = document.getElementById('stations');

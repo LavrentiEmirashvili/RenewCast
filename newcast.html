@@ -7,7 +7,8 @@
     <link rel="icon" href="icon.png" >
     <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23ffe59a;stop-opacity:1' /%3E%3Cstop offset='100%25' style='stop-color:%23ffe59a;stop-opacity:1' /%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='40' fill='url(%23grad)'/%3E%3Ccircle cx='50' cy='50' r='25' fill='rgba(255,255,255,0.3)'/%3E%3Ccircle cx='50' cy='50' r='8' fill='white'/%3E%3Cpath d='M20,50 Q50,20 80,50 Q50,80 20,50' fill='none' stroke='white' stroke-width='2' opacity='0.6'/%3E%3C/svg%3E">
     <link rel="stylesheet" href="new.css">
-    <script src="new.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="new.js" defer></script>
 </head>
 <body>
     <!-- Header -->
@@ -45,19 +46,14 @@
             <div class="hero-grid">
         <div class="hero-content">
                     <h1>
-                        ჰიდროენერგიის
+                        განახლებადი ენერგიების
                         <span class="highlight">ინტელიგენტური</span>
                         მართვა
                     </h1>
                     <p>
-                        მაღალი სიზუსტით პროგნოზირება, ფინანსური დანაკარგების მინიმიზაცია 
-                        და წყლის რესურსების ოპტიმალური გამოყენება თანამედროვე ტექნოლოგიებით.
+                        მაღალი სიზუსტით პროგნოზირება განახლებადი რესურსების მოპოვების ოპტიმიზაციისა და ფინანსური დანაკარგების მინიმიზაციის მიზნით. ჰიდრო, სოლარული და ქარის ენერგიის ინტეგრირებული მართვის პლატფორმა.
+                        
                     </p>
-                    <div class="cta-buttons">
-                        <button class="cta-secondary" onclick="scrollToSection('features')">
-                            იხილეთ პროგნოზი
-                        </button>
-                    </div>
                 </div>
                 <div class="hero-visual">
                     <div class="water-animation"></div>
@@ -70,24 +66,7 @@
                         <div class="floating-particle particle-3"></div>
                         <div class="floating-particle particle-4"></div>
                     </div>
-                    <div class="data-points">
-                        <div class="data-point">
-                            <span class="dot"></span>
-                            <span>რეალური დროის მონაცემები</span>
-                        </div>
-                        <div class="data-point">
-                            <span class="dot"></span>
-                            <span>94.8% სიზუსტე</span>
-                        </div>
-                        <div class="data-point">
-                            <span class="dot"></span>
-                            <span>ავტომატური ოპტიმიზაცია</span>
-                        </div>
-                        <div class="data-point">
-                            <span class="dot"></span>
-                            <span>24/7 მონიტორინგი</span>
-                        </div>
-                    </div>
+                    
                     <div class="energy-waves">
                         <div class="wave wave-1"></div>
                         <div class="wave wave-2"></div>
@@ -111,7 +90,7 @@
             <!-- Stats Cards -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-value" id="accuracy">- - -</div>
+                    <div class="stat-value" id="accuracy">88%</div>
                     <div class="stat-label">პროგნოზის სიზუსტე</div>
                 </div>
                 <div class="stat-card">
@@ -128,115 +107,33 @@
                 </div>
             </div>
 
-            <!-- Dashboard Container (moved up) -->
-            <div class="dashboard-container">
-                <div class="dashboard-grid">
-                    <div class="chart-container">
-                        <h4>გამომუშავება vs პროგნოზი (7 დღე)</h4>
-                        <canvas id="productionChart"></canvas>
-                    </div>
-                    <div class="chart-container">
-                        <h4>წყლის დონე და ნალექის პროგნოზი (7 დღე)</h4>
-                        <canvas id="waterChart"></canvas>
-                    </div>
-                </div>
-
+            =
                 <!-- HPP Stations Section -->
                 <div class="stations-section">
                     <h3>ჰესები</h3>
-                    <div class="stations-grid">
-                        <div class="station-card" data-type="hpp1">
-                            <div class="station-icon">🌊</div>
-                            <h4>HPP-1</h4>
-                            <p>პირველი ჰესი</p>
-                            <div class="station-stats">
-                                <span class="stat">აქტიური</span>
-                                <span class="stat">7.8 MW მაქს</span>
-                            </div>
-                            <button class="station-btn" onclick="selectHPP('hpp1')">პროგნოზი</button>
-                        </div>
-                        <div class="station-card" data-type="hpp2">
-                            <div class="station-icon">🌊</div>
-                            <h4>HPP-2</h4>
-                            <p>მეორე ჰესი</p>
-                            <div class="station-stats">
-                                <span class="stat">აქტიური</span>
-                                <span class="stat">6.1 MW მაქს</span>
-                            </div>
-                            <button class="station-btn" onclick="selectHPP('hpp2')">პროგნოზი</button>
-                        </div>
-                        <div class="station-card" data-type="hpp3">
-                            <div class="station-icon">🌊</div>
-                            <h4>HPP-3</h4>
-                            <p>მესამე ჰესი</p>
-                            <div class="station-stats">
-                                <span class="stat">აქტიური</span>
-                                <span class="stat">5.5 MW მაქს</span>
-                            </div>
-                            <button class="station-btn" onclick="selectHPP('hpp3')">პროგნოზი</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- HPP Prediction Section -->
-                <div class="hpp-prediction-section" id="hppPredictionSection" style="display: none;">
-                    <h3 id="selectedHPPTitle">HPP-1 პროგნოზი</h3>
-                    
-                    <!-- HPP Charts -->
-                    <div class="hpp-charts-container">
-                        <div class="hpp-chart-card">
-                            <h4 id="powerChartTitle">HPP-1 - გამომუშავება (MW)</h4>
-                            <canvas id="hppPowerChart"></canvas>
-                        </div>
-                        <div class="hpp-chart-card">
-                            <h4 id="waterChartTitle">HPP-1 - ნალექის რაოდენობა (მმ)</h4>
-                            <canvas id="hppWaterChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Prediction Form -->
-                    <div class="prediction-form">
-                        <h4>პროგნოზის პარამეტრები</h4>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="waterLevel">წყლის დონე (მ)</label>
-                                <input type="number" id="waterLevel" placeholder="მიუთითეთ წყლის დონე" value="145">
-                            </div>
-                            <div class="form-group">
-                                <label for="precipitation">ნალექის პროგნოზი (მმ)</label>
-                                <input type="number" id="precipitation" placeholder="ნალექი 24 საათში" value="12">
-                            </div>
-                            <div class="form-group">
-                                <label for="temperature">ტემპერატურა (°C)</label>
-                                <input type="number" id="temperature" placeholder="საშუალო ტემპერატურა" value="15">
-                            </div>
-                            <div class="form-group">
-                                <label for="inflow">შემოდინება (მ³/წმ)</label>
-                                <input type="number" id="inflow" placeholder="მდინარის შემოდინება" value="85">
+                    <div class="hpp-graphs-wrapper">
+                        <!-- HPP 1 -->
+                        <div class="hpp-block">
+                            <h4>აჭიჰესი</h4>
+                            <div class="hpp-charts-row">
+                                <canvas id="hpp1-output-chart" width="600" height="700"></canvas>
+                                <canvas id="hpp1-precip-chart" width="600" height="700"></canvas>
                             </div>
                         </div>
-                        <button class="predict-button" onclick="generateHPPPrediction()">პროგნოზის გენერირება</button>
-                    </div>
-
-                    <div id="loading" class="loading">
-                        <div class="spinner"></div>
-                        <p>მიმდინარეობს გამოთვლები...</p>
-                    </div>
-
-                    <div id="predictionResult" style="display: none; margin-top: 2rem;">
-                        <h4>პროგნოზის შედეგები</h4>
-                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
-                            <div style="text-align: center;">
-                                <strong style="font-size: 1.5rem; color: #ffe59a;" id="predictedGeneration">0 MW</strong>
-                                <p>პროგნოზირებული გამომუშავება</p>
+                        <!-- HPP 2 -->
+                        <div class="hpp-block">
+                            <h4>ბახვი 3 ჰესი</h4>
+                            <div class="hpp-charts-row">
+                                <canvas id="hpp2-output-chart" width="600" height="700"></canvas>
+                                <canvas id="hpp2-precip-chart" width="600" height="700"></canvas>
                             </div>
-                            <div style="text-align: center;">
-                                <strong style="font-size: 1.5rem; color: #ffe59a;" id="confidenceLevel">0%</strong>
-                                <p>სიზუსტის მაჩვენებელი</p>
-                            </div>
-                            <div style="text-align: center;">
-                                <strong style="font-size: 1.5rem; color: #ffe59a;" id="potentialSavings">€0</strong>
-                                <p>პოტენციური დანაზოგი</p>
+                        </div>
+                        <!-- HPP 3 -->
+                        <div class="hpp-block">
+                            <h4>ინწობა ჰესი</h4>
+                            <div class="hpp-charts-row">
+                                <canvas id="hpp3-output-chart" width="600" height="700"></canvas>
+                                <canvas id="hpp3-precip-chart" width="600" height="700"></canvas>
                             </div>
                         </div>
                     </div>
@@ -320,24 +217,22 @@
                         <img src="lavrenti.jpg" alt="ლავრენტი ემირაშვილი" />
                     </div>
                     <h4>ლავრენტი ემირაშვილი</h4>
-                    <p>CTO & Co-Founder</p>
-                    <p class="member-description">AI/ML სპეციალისტი</p>
+                    <p>AI/ML სპეციალისტი</p>
+
                 </div>
                 <div class="team-member">
                     <div class="member-photo">
                         <img src="davit.jpg" alt="დავით აბრამიშვილი" />
                     </div>
                     <h4>დავით აბრამიშვილი</h4>
-                    <p>CTO & Co-Founder</p>
-                    <p class="member-description">AI/ML სპეციალისტი</p>
+                    <p>Software engineer</p>
                 </div>
                 <div class="team-member">
                     <div class="member-photo">
                         <img src="koba.jpg" alt="კობა ზურაბაშვილი" />
                 </div>
                     <h4>კობა ზურაბაშვილი</h4>
-                    <p>Lead Developer</p>
-                    <p class="member-description">Full-stack დეველოპერი</p>
+                    <p>Front End/Design</p>
                 </div>
             </div>
         </div>
@@ -390,6 +285,13 @@
         </div>
     </footer>
 
-    <script src="index.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                if (typeof initCharts === 'function') {
+                    initCharts();
+                }
+            });
+        </script>
+        <script src="index.js"></script>
 </body>
 </html>
