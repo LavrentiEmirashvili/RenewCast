@@ -46,6 +46,7 @@
     .renewables-row {
         flex-direction: column;
         gap: 24px;
+        height: 300px;
     }
 }
 /* HPP Graphs Section */
